@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort LI-ies by images alts</title>
+</head>
+<body>
+    <ul id="imageList">
+        <li><img src="image1.jpg" alt="1"></li>
+        <li><img src="image2.jpg" alt="2"></li>
+        <li><img src="image3.jpg" alt="1"></li>
+        <li><img src="image4.jpg" alt="2"></li>
+     </ul>
+     <button id="sort">Sort Now</button>
+</body>
+<script>
+    document.querySelector('#sort').addEventListener('click',()=>{
+        let UL = document.querySelector('#imageList');
+        let liElements = UL.querySelectorAll('li');
+        
+        const images = [];
+
+        for (let element of liElements){
+            const img = element.querySelector('img')
+            if (img){    
+                images.push({ element: img , alt: img.getAttribute('alt') });
+            }
+        }
+
+        images.sort((a,b)=>{
+            return a.alt.localeCompare(b.alt);
+        })
+
+        UL.innerHTML = ''
+
+        for (const { element } of images) {
+            const li = document.createElement('li');
+            li.appendChild(element);
+            UL.appendChild(li);
+        }
+    })
+</script>
+</html>
